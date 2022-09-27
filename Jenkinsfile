@@ -2,7 +2,7 @@ pipeline {
     agent {label 'NODE2-JDK11-MVN'}
     parameters {
         choice(name: 'BRANCH_TO_BUILD', choices: ['JenkinsTest', 'main'], description: 'Branch to build')
-        string(name: 'MAVEN_GOAL', defaultValue: 'mvn package', description: 'Maven Goal')
+        string(name: 'MAVEN_GOAL', defaultValue: 'package', description: 'Maven Goal')
     }
     stages {
         stage('get') {
@@ -12,7 +12,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh "${params.MAVEN_GOAL}"
+                sh "mvn ${params.MAVEN_GOAL}"
             }
         }
         stage('Archive test results') {
